@@ -2,6 +2,7 @@ package xyz.luan.crusher.model
 
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import xyz.luan.crusher.model.Crons
 
@@ -16,10 +17,14 @@ object Db {
 
     fun init() {
         print("Started database: ${db.url}")
-        transaction(db) { SchemaUtils.create(Crons) }
+        t { SchemaUtils.create(Crons) }
     }
 
     fun listCrons(userEmail: String): List<Cron> {
-        return Cron.find { Crons.userEmail.eq(userEmail) }.toList()
+        return t { Cron.find { Crons.userEmail.eq(userEmail) }.toList() }
+    }
+
+    private fun <T> t(statement: Transaction.() -> T): T {
+        return transaction(db, statement)
     }
 }
