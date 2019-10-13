@@ -9,12 +9,16 @@ version = "0.1.0"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+
     compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
     compile("org.slf4j:slf4j-simple:+")
+    compile("org.jetbrains.exposed:exposed:0.17.6")
+    compile("com.google.code.gson:gson:2.8.6")
 }
 
 task("copyToLib", Copy::class) {
