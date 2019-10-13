@@ -18,6 +18,7 @@ dependencies {
     compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
     compile("org.slf4j:slf4j-simple:+")
     compile("org.jetbrains.exposed:exposed:0.17.6")
+    compile("org.postgresql:postgresql:42.2.1")
     compile("com.google.code.gson:gson:2.8.6")
 }
 
