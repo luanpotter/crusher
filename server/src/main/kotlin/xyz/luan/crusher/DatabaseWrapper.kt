@@ -5,13 +5,16 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import xyz.luan.crusher.model.Crons
 
 object DatabaseWrapper {
-    fun init() {
+    val db: Database by lazy {
         val env = ProcessBuilder().environment()
         val (connectionString, driver) = env["JDBC_DATABASE_URL"]?.let {
             Pair(it, "org.postgresql.Driver")
         } ?: Pair("jdbc:h2:mem:test", "org.h2.Driver")
         Database.connect(connectionString, driver)
+    }
 
-        SchemaUtils.create(Crons)
+    fun init() {
+        print("Started database: ${db.url}")
+        transaction { SchemaUtils.create(Crons) }
     }
 }
