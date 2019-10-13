@@ -1,6 +1,9 @@
 package xyz.luan.crusher
 
+import org.slf4j.LoggerFactory
 import spark.kotlin.*
+
+private val logger = LoggerFactory.getLogger("main")
 
 private fun getHerokuAssignedPort(): Int {
     val env = ProcessBuilder().environment()
@@ -8,7 +11,13 @@ private fun getHerokuAssignedPort(): Int {
 }
 
 fun main() {
+    logger.info("Igniting spark!")
     val http: Http = ignite()
-    port(getHerokuAssignedPort())
+
+    val port = getHerokuAssignedPort()
+    logger.info("Binding to port $port")
+    http.port(port)
+
     http.get("/hello") { "Hello Spark Kotlin/Heroku!" }
 }
+
