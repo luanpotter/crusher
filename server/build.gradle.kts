@@ -16,7 +16,12 @@ dependencies {
     compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
 }
 
-task("stage") { dependsOn("build", "clean") }
+task("copyToLib", Copy::class) {
+    into("$buildDir/libs")
+    from(configurations.compile)
+}
+
+task("stage") { dependsOn("build", "copyToLib") }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
