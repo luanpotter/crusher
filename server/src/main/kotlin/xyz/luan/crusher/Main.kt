@@ -1,20 +1,17 @@
 package xyz.luan.crusher
 
-import org.slf4j.LoggerFactory
 import spark.kotlin.*
 import xyz.luan.crusher.api.CronApi
 
-private val logger = LoggerFactory.getLogger("main")
-
 fun main() {
-    logger.info("Connecting to DB...")
+    print("Connecting to DB...")
     DatabaseWrapper.init()
 
-    logger.info("Igniting spark!")
+    print("Igniting spark!")
     val http: Http = ignite()
 
     val port = getHerokuAssignedPort()
-    logger.info("Binding to port $port")
+    print("Binding to port $port")
     http.port(port)
 
     routes(http)
