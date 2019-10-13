@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp build/classes/*:build/libs/* xyz.luan.crusher.Main
+web: java $JAVA_OPTS -cp build/classes/*:build/libs/* xyz.luan.crusher.MainKt
