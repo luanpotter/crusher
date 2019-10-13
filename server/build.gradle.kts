@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
+    compile("org.slf4j:slf4j-simple:+")
 }
 
 task("copyToLib", Copy::class) {
@@ -22,7 +23,7 @@ task("copyToLib", Copy::class) {
 }
 
 task("stage") {
-    dependsOn("clean", "build", "copyToLib")
+    dependsOn("build", "copyToLib")
 }
 
 tasks.withType<KotlinCompile> {
