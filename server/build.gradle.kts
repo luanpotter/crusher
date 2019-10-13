@@ -21,7 +21,9 @@ task("copyToLib", Copy::class) {
     from(configurations.compile)
 }
 
-task("stage") { dependsOn("build", "copyToLib") }
+task("stage") {
+    dependsOn("build", "copyToLib")
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
