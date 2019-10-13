@@ -16,6 +16,12 @@ dependencies {
     compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
 }
 
+task("stage") {
+    dependsOn("build", "clean")
+}
+
+build.mustRunAfter clean
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
