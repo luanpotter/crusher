@@ -2,10 +2,11 @@ package xyz.luan.crusher
 
 import spark.kotlin.*
 import xyz.luan.crusher.api.CronApi
+import xyz.luan.crusher.model.Db
 
 fun main() {
     print("Connecting to DB...")
-    DatabaseWrapper.init()
+    Db.init()
 
     print("Igniting spark!")
     val http: Http = ignite()

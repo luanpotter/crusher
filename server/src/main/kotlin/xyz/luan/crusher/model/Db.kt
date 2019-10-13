@@ -1,12 +1,12 @@
-package xyz.luan.crusher
+package xyz.luan.crusher.model
 
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import xyz.luan.crusher.model.Crons
 
-object DatabaseWrapper {
-    val db: Database by lazy {
+object Db {
+    private val db: Database by lazy {
         val env = ProcessBuilder().environment()
         val (connectionString, driver) = env["JDBC_DATABASE_URL"]?.let {
             Pair(it, "org.postgresql.Driver")
@@ -17,5 +17,9 @@ object DatabaseWrapper {
     fun init() {
         print("Started database: ${db.url}")
         transaction(db) { SchemaUtils.create(Crons) }
+    }
+
+    fun listCrons(userEmail: String): List<Cron> {
+        return Cron.find { Crons.userEmail.eq(userEmail) }.toList()
     }
 }

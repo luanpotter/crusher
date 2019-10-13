@@ -6,6 +6,7 @@ import spark.kotlin.RouteHandler
 import spark.kotlin.halt
 import xyz.luan.crusher.model.Cron
 import xyz.luan.crusher.model.Crons
+import xyz.luan.crusher.model.Db
 
 private val json = Gson()
 
@@ -15,7 +16,7 @@ object CronApi {
     fun routes(http: Http) {
         http.get("/crons") {
             val email = "foo@bar.com"
-            val crons = Cron.find { Crons.userEmail.eq(email) }.toList()
+            val crons = Db.listCrons(email)
             json.toJson(crons)
         }
         http.post("/crons") {
