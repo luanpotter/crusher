@@ -9,7 +9,9 @@ private fun getHerokuAssignedPort(): Int {
 
 fun main() {
     val http: Http = ignite()
-    port(getHerokuAssignedPort())
+    val port = getHerokuAssignedPort()
+    print("foo bar $port")
+    port(port)
 
     http.get("/hello") { "Hello Spark Kotlin/Heroku!" }
 }
