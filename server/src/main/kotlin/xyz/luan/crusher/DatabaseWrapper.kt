@@ -2,6 +2,7 @@ package xyz.luan.crusher
 
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import xyz.luan.crusher.model.Crons
 
 object DatabaseWrapper {
@@ -15,6 +16,6 @@ object DatabaseWrapper {
 
     fun init() {
         print("Started database: ${db.url}")
-        transaction { SchemaUtils.create(Crons) }
+        transaction(db) { SchemaUtils.create(Crons) }
     }
 }
