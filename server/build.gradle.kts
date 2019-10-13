@@ -22,7 +22,7 @@ task("copyToLib", Copy::class) {
 }
 
 task("stage") {
-    dependsOn("build", "copyToLib")
+    dependsOn("clean", "build", "copyToLib")
 }
 
 tasks.withType<KotlinCompile> {
