@@ -6,7 +6,7 @@ import xyz.luan.crusher.api.extractToken
 class CronApiTest {
     @Test
     fun `test extract token regex`() {
-        val header = "Bearer: foobar"
+        val header = "Bearer foobar"
         val token = header.extractToken()
         assertThat(token, equalTo("foobar"))
     }

@@ -12,7 +12,7 @@ import xyz.luan.crusher.model.Db
 private val json = Gson()
 
 @VisibleForTesting
-fun String.extractToken() = this.replace("Bearer: ([^)]*)".toRegex(), "$1")
+fun String.extractToken() = this.replace("Bearer ([^)]*)".toRegex(), "$1")
 
 private fun RouteHandler.parseCron() = json.fromJson(request.body(), Cron::class.java)
 
