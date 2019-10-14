@@ -8,6 +8,7 @@ import spark.kotlin.halt
 import xyz.luan.crusher.FirebaseWrapper
 import xyz.luan.crusher.model.Cron
 import xyz.luan.crusher.model.Db
+import xyz.luan.crusher.model.Db.createCron
 
 private val json = Gson()
 
@@ -33,7 +34,7 @@ object CronApi {
             val cron = parseCron()
             if (cron.userEmail != email) halt(403, "You can only created crons for yourself!")
             // TODO validate cron
-            json.toJson(cron.save())
+            json.toJson(createCron(cron))
         }
     }
 }

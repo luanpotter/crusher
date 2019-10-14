@@ -22,4 +22,7 @@ object Db {
         return transaction(db) { DbCron.find { DbCrons.userEmail.eq(userEmail) }.map { it.to() }.toList() }
     }
 
+    fun createCron(cron: Cron): Cron {
+        return transaction(db) { cron.save() }
+    }
 }
