@@ -5,6 +5,8 @@ import spark.kotlin.halt
 import com.google.firebase.FirebaseApp
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseOptions
+import com.google.firebase.messaging.*
+
 
 object FirebaseWrapper {
 
@@ -25,7 +27,20 @@ object FirebaseWrapper {
         return firebaseToken.email
     }
 
-    fun sendPush(deviceId: String, title: String, text: String) {
-        // TODO impl
+    fun sendPush(deviceToken: String, title: String, text: String) {
+        val message = Message.builder()
+            .setNotification(Notification(title, text))
+            .setAndroidConfig(
+                AndroidConfig.builder()
+                    .setNotification(
+                        AndroidNotification.builder()
+                            .setIcon("news_alert_icon")
+                            .build()
+                    )
+                    .build()
+            )
+            .setToken(deviceToken)
+            .build()
+        FirebaseMessaging.getInstance(app).sendAsync(message).get()
     }
 }
