@@ -2,6 +2,7 @@ package xyz.luan.crusher
 
 import spark.kotlin.*
 import xyz.luan.crusher.api.CronApi
+import xyz.luan.crusher.api.JobApi
 import xyz.luan.crusher.model.Db
 
 fun main() {
@@ -23,9 +24,11 @@ private fun getHerokuAssignedPort(): Int {
     return env["PORT"]?.let { Integer.parseInt(it) } ?: 4567
 }
 
+
 private fun routes(http: Http) {
-    http.get("/hello") { "Hello Spark Kotlin/Heroku!" }
+    http.get("/") { "Welcome to Crusher APP! Please follow up here: https://github.com/luanpotter/crusher" }
 
     CronApi.routes(http)
+    JobApi.routes(http)
 }
 
