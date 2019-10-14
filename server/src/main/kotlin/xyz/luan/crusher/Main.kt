@@ -24,7 +24,6 @@ private fun getHerokuAssignedPort(): Int {
     return env["PORT"]?.let { Integer.parseInt(it) } ?: 4567
 }
 
-
 private fun routes(http: Http) {
     http.get("/") { "Welcome to Crusher APP! Please follow up here: https://github.com/luanpotter/crusher" }
 
