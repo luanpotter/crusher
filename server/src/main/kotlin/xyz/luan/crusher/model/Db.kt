@@ -20,8 +20,8 @@ object Db {
         t { SchemaUtils.create(Crons) }
     }
 
-    fun listCrons(userEmail: String): List<Cron> {
-        return t { Cron.find { Crons.userEmail.eq(userEmail) }.toList() }
+    fun listCrons(userEmail: String): List<DbCron> {
+        return t { DbCron.find { DbCrons.userEmail.eq(userEmail) }.toList() }
     }
 
     private fun <T> t(statement: Transaction.() -> T): T {
