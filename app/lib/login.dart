@@ -7,10 +7,14 @@ class Login {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  String email;
+  FirebaseUser _user;
+  
+  Login(this._user);
 
-  Login(FirebaseUser user) {
-    this.email = user.email;
+  String get email => _user.email;
+
+  Future<String> getToken() {
+    return _user.getIdToken().then((id) => id.token);
   }
 
   static Future<Login> silentLogin() async {
