@@ -20,9 +20,7 @@ class Api {
 
   static Future<Map<String, String>> _headers(Login user) async {
     final String token = await user.getToken();
-    print('token: "$token"');
     final Map<String, String> headers = { 'Authorization': 'Bearer $token' };
-    print(headers);
     return headers;
   }
 }

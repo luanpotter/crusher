@@ -11,7 +11,7 @@ class Cron {
     return Cron(
       name: map['name'],
       email: map['userEmail'],
-      cron: map['cron'],
+      cron: map['cronString'],
       title: map['title'],
       text: map['text'],
     );
@@ -21,7 +21,7 @@ class Cron {
     return {
       'name': name,
       'userEmail': email,
-      'cron': cron,
+      'cronString': cron,
       'title': title,
       'text': text,
     };
