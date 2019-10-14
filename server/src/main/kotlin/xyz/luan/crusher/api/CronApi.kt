@@ -20,7 +20,9 @@ object CronApi {
             json.toJson(crons)
         }
         http.post("/crons") {
+            print("----- ${request.body()}")
             val cron = parseCron()
+            print("----- $cron")
             val email = "foo@bar.com"
             if (cron.userEmail != email) halt(403, "You can only created crons for yourself!")
             // TODO validate cron
