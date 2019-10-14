@@ -24,4 +24,8 @@ object FirebaseWrapper {
         if (!firebaseToken.isEmailVerified) throw halt("Verified email required");
         return firebaseToken.email
     }
+
+    fun sendPush(deviceId: String, title: String, text: String) {
+        // TODO impl
+    }
 }

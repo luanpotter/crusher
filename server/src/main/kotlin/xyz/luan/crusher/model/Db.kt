@@ -18,6 +18,10 @@ object Db {
         transaction(db) { SchemaUtils.create(DbCrons) }
     }
 
+    fun allCrons(): List<Cron> {
+        return transaction(db) { DbCron.all().map { it.to() }.toList() }
+    }
+
     fun listCrons(userEmail: String): List<Cron> {
         return transaction(db) { DbCron.find { DbCrons.userEmail.eq(userEmail) }.map { it.to() }.toList() }
     }

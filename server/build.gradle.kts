@@ -23,6 +23,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.firebase:firebase-admin:6.10.0")
     implementation("com.h2database:h2:1.4.199")
+    implementation("com.cronutils:cron-utils:9.0.2")
 
     testImplementation("junit:junit:4.12")
 }

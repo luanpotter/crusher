@@ -1,12 +1,18 @@
 package xyz.luan.crusher.model
 
+import com.cronutils.model.CronType
+import com.cronutils.model.CronType.*
+import com.cronutils.model.definition.CronDefinitionBuilder
 import org.jetbrains.exposed.dao.*
 import spark.kotlin.halt
 import xyz.luan.crusher.nullOrEmpty
+import xyz.luan.crusher.CronWrapper
+
 
 object DbCrons : IntIdTable("crons") {
     val name = varchar("name", length = 255).index()
     val userEmail = varchar("user_email", length = 255).index()
+    val userDeviceToken = varchar("user_device_token", length = 255).index()
 
     val cronString = varchar("cron_string", length = 255)
     val pushTitle = text("push_title")
@@ -21,6 +27,7 @@ class DbCron(id: EntityID<Int>) : IntEntity(id) {
     var cronString by DbCrons.cronString
     var pushTitle by DbCrons.pushTitle
     var pushText by DbCrons.pushText
+    var userDeviceToken by DbCrons.userDeviceToken
 
     fun to(): Cron {
         return Cron(
@@ -29,7 +36,8 @@ class DbCron(id: EntityID<Int>) : IntEntity(id) {
             userEmail = userEmail,
             cronString = cronString,
             pushTitle = pushTitle,
-            pushText = pushText
+            pushText = pushText,
+            userDeviceToken = userDeviceToken
         )
     }
 }
@@ -40,24 +48,21 @@ data class Cron constructor(
     val userEmail: String?,
     val cronString: String?,
     val pushTitle: String?,
-    val pushText: String?
+    val pushText: String?,
+    val userDeviceToken: String?
 ) {
     fun validate() {
         if (nullOrEmpty(name)) throw halt(422, "Field 'name' is required")
         if (nullOrEmpty(userEmail)) throw halt(422, "Field 'userEmail' is required")
         if (nullOrEmpty(pushTitle)) throw halt(422, "Field 'pushTitle' is required")
         if (nullOrEmpty(pushText)) throw halt(422, "Field 'pushText' is required")
+        if (nullOrEmpty(userDeviceToken)) throw halt(422, "Field 'userDeviceToken' is required")
 
         if (nullOrEmpty(cronString)) {
             throw halt(422, "Field 'cronString' is required")
-        } else if (!validCron(cronString!!)) {
+        } else if (!CronWrapper.isValid(cronString!!)) {
             throw halt(422, "Field 'cronString' must be a valid cron.")
         }
-    }
-
-    private fun validCron(cronString: String): Boolean {
-        // TODO valid cron string
-        return true
     }
 
     fun save(): Cron {
@@ -68,6 +73,7 @@ data class Cron constructor(
             cronString = cron.cronString!!
             pushTitle = cron.pushTitle!!
             pushText = cron.pushText!!
+            userDeviceToken = cron.userDeviceToken!!
         }
         return dbCron.to()
     }
