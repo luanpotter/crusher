@@ -33,7 +33,7 @@ task("copyToLib", Copy::class) {
 }
 
 task("decryptSecrets", Exec::class) {
-    workingDir("$projectDir/..")
+    workingDir(projectDir)
     commandLine("sh", "./cmds/heroku-unpack.sh")
 }
 
