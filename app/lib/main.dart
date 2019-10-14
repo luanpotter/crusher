@@ -56,7 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (user == null) {
       return LoginPage(callback: (user) => this.setState(() => this.user = user));
     } else {
-      return MainPage(user: user);
+      return MainPage(user: user, logout: () async {
+        this.setState(() {
+          this.loading = true;
+          this.user = null;
+        });
+        await Login.signOut();
+        this.setState(() => this.loading = false);
+      });
     }
   }
 }

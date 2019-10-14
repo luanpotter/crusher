@@ -35,6 +35,10 @@ class Login {
     return Login(user);
   }
 
+  static Future<void> signOut() {
+    return _auth.signOut();
+  }
+
   static GoogleSignInButton button(VoidCallback onPressed) {
     return GoogleSignInButton(onPressed: onPressed);
   }
