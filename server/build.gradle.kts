@@ -32,11 +32,17 @@ task("copyToLib", Copy::class) {
     from(configurations.compileClasspath)
 }
 
+task("resolveSymlinkForHeroku", Copy::class) {
+    into("$buildDir/resources/main/")
+    from("$rootDir/src/main/resources/crusher-app-firebase-service-account.json")
+}
+
 task("stage") {
     outputs.upToDateWhen { false }
-    dependsOn("clean", "build", "copyToLib")
+    dependsOn("clean", "build", "copyToLib", "resolveSymlinkForHeroku")
     tasks.findByName("build")?.mustRunAfter("clean")
     tasks.findByName("copyToLib")?.mustRunAfter("build")
+    tasks.findByName("resolveSymlinkForHeroku")?.mustRunAfter("copyToLib")
 }
 
 tasks.withType<KotlinCompile> {
