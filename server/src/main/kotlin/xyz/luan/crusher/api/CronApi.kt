@@ -18,7 +18,6 @@ private fun RouteHandler.parseCron() = json.fromJson(request.body(), Cron::class
 
 private fun RouteHandler.getToken(): String {
     val auth: String = request.headers("Authorization") ?: throw halt("Auth token is required")
-    print("auth token $auth parsed ${auth.extractToken()}")
     return auth.extractToken()
 }
 

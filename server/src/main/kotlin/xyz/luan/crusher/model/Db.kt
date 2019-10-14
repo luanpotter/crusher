@@ -19,8 +19,7 @@ object Db {
     }
 
     fun listCrons(userEmail: String): List<Cron> {
-        val dbCrons = transaction(db) { DbCron.find { DbCrons.userEmail.eq(userEmail) } }
-        return dbCrons.map { it.to() }.toList()
+        return transaction(db) { DbCron.find { DbCrons.userEmail.eq(userEmail) }.map { it.to() }.toList() }
     }
 
 }

@@ -20,7 +20,6 @@ object FirebaseWrapper {
     }
 
     fun validateTokenAndGetEmail(token: String): String {
-        print("============ token $token")
         val firebaseToken = FirebaseAuth.getInstance(app).verifyIdToken(token)
         if (!firebaseToken.isEmailVerified) throw halt("Verified email required");
         return firebaseToken.email
