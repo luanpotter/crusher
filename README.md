@@ -31,3 +31,11 @@ Times **must** be specified in UTC.
 * `7 * * 1` -> every monday at 10:00 (7am)
 
 You can also use ranges (`-`), lists, and any other standard cron consstruct. Please check [wikipedia](https://en.wikipedia.org/wiki/Cron) for more details on cron strings.
+
+## Next Steps
+
+ * Support more parameters for push notf (icon, actions, etc)
+ * (app-only) allow seeing and editing current notf
+ * Allow users to specify the timezone
+ * Allow user to register multiple devices and select which devices per push
+ * (app-only) Improve description of the app, purpose and how to write cron expression
