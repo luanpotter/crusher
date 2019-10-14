@@ -22,6 +22,7 @@ class DbCron(id: EntityID<Int>) : IntEntity(id) {
 
     fun to(): Cron {
         return Cron(
+            id = id.value,
             name = name,
             userEmail = userEmail,
             cronString = cronString,
@@ -32,20 +33,22 @@ class DbCron(id: EntityID<Int>) : IntEntity(id) {
 }
 
 data class Cron constructor(
+    val id: Int,
     val name: String,
     val userEmail: String,
     val cronString: String,
     val pushTitle: String,
     val pushText: String
 ) {
-    fun toDb(): DbCron {
+    fun save(): Cron {
         val cron = this;
-        return DbCron.new {
+        val dbCron = DbCron.new {
             name = cron.name;
             userEmail = cron.userEmail;
             cronString = cron.cronString;
             pushTitle = cron.pushTitle;
             pushText = cron.pushText;
         }
+        return dbCron.to()
     }
 }

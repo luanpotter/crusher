@@ -15,18 +15,15 @@ object CronApi {
     fun routes(http: Http) {
         http.get("/crons") {
             val email = "foo@bar.com"
-            val crons: List<Cron> = Db.listCrons(email).map { it.to() }
+            val crons: List<Cron> = Db.listCrons(email)
             json.toJson(crons)
         }
         http.post("/crons") {
-            print("----- ${request.body()}")
-            val dbCron = parseCron().toDb()
-            print("----- $dbCron")
+            val cron = parseCron()
             val email = "foo@bar.com"
-            if (dbCron.userEmail != email) halt(403, "You can only created crons for yourself!")
+            if (cron.userEmail != email) halt(403, "You can only created crons for yourself!")
             // TODO validate cron
-            // TODO create it
-            json.toJson(dbCron.to())
+            json.toJson(cron.save())
         }
     }
 }
