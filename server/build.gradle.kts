@@ -39,8 +39,9 @@ task("decryptSecrets", Exec::class) {
 
 task("stage") {
     outputs.upToDateWhen { false }
-    dependsOn("clean", "build", "copyToLib")
-    tasks.findByName("build")?.mustRunAfter("clean")
+    dependsOn("clean", "build", "copyToLib", "decryptSecrets")
+    tasks.findByName("decryptSecrets")?.mustRunAfter("clean")
+    tasks.findByName("build")?.mustRunAfter("decryptSecrets")
     tasks.findByName("copyToLib")?.mustRunAfter("build")
 }
 
