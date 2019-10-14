@@ -16,11 +16,14 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    compile("com.sparkjava:spark-kotlin:1.0.0-alpha")
-    compile("org.slf4j:slf4j-simple:+")
-    compile("org.jetbrains.exposed:exposed:0.17.6")
-    compile("org.postgresql:postgresql:42.2.1")
-    compile("com.google.code.gson:gson:2.8.6")
+    implementation("com.sparkjava:spark-kotlin:1.0.0-alpha")
+    implementation("org.slf4j:slf4j-simple:+")
+    implementation("org.jetbrains.exposed:exposed:0.17.6")
+    implementation("org.postgresql:postgresql:42.2.1")
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.firebase:firebase-admin:6.10.0")
+
+    testCompile("junit:junit:4.12")
 }
 
 task("copyToLib", Copy::class) {
