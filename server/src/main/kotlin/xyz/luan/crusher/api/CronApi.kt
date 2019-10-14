@@ -33,7 +33,7 @@ object CronApi {
             val email = FirebaseWrapper.validateTokenAndGetEmail(getToken())
             val cron = parseCron()
             if (cron.userEmail != email) halt(403, "You can only created crons for yourself!")
-            // TODO validate cron
+            cron.validate()
             json.toJson(createCron(cron))
         }
     }

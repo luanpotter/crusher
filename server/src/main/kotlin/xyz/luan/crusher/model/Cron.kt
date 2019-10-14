@@ -1,6 +1,8 @@
 package xyz.luan.crusher.model
 
 import org.jetbrains.exposed.dao.*
+import spark.kotlin.halt
+import xyz.luan.crusher.nullOrEmpty
 
 object DbCrons : IntIdTable("crons") {
     val name = varchar("name", length = 255).index()
@@ -33,21 +35,39 @@ class DbCron(id: EntityID<Int>) : IntEntity(id) {
 }
 
 data class Cron constructor(
-    val id: Int,
-    val name: String,
-    val userEmail: String,
-    val cronString: String,
-    val pushTitle: String,
-    val pushText: String
+    val id: Int?,
+    val name: String?,
+    val userEmail: String?,
+    val cronString: String?,
+    val pushTitle: String?,
+    val pushText: String?
 ) {
+    fun validate() {
+        if (nullOrEmpty(name)) throw halt(422, "Field 'name' is required")
+        if (nullOrEmpty(userEmail)) throw halt(422, "Field 'userEmail' is required")
+        if (nullOrEmpty(pushTitle)) throw halt(422, "Field 'pushTitle' is required")
+        if (nullOrEmpty(pushText)) throw halt(422, "Field 'pushText' is required")
+
+        if (nullOrEmpty(cronString)) {
+            throw halt(422, "Field 'cronString' is required")
+        } else if (!validCron(cronString!!)) {
+            throw halt(422, "Field 'cronString' must be a valid cron.")
+        }
+    }
+
+    private fun validCron(cronString: String): Boolean {
+        // TODO valid cron string
+        return true
+    }
+
     fun save(): Cron {
-        val cron = this;
+        val cron = this
         val dbCron = DbCron.new {
-            name = cron.name;
-            userEmail = cron.userEmail;
-            cronString = cron.cronString;
-            pushTitle = cron.pushTitle;
-            pushText = cron.pushText;
+            name = cron.name!!
+            userEmail = cron.userEmail!!
+            cronString = cron.cronString!!
+            pushTitle = cron.pushTitle!!
+            pushText = cron.pushText!!
         }
         return dbCron.to()
     }

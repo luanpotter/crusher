@@ -12,8 +12,8 @@ class Cron {
       name: map['name'],
       email: map['userEmail'],
       cron: map['cronString'],
-      title: map['title'],
-      text: map['text'],
+      title: map['pushTitle'],
+      text: map['pushText'],
     );
   }
 
@@ -22,8 +22,8 @@ class Cron {
       'name': name,
       'userEmail': email,
       'cronString': cron,
-      'title': title,
-      'text': text,
+      'pushTitle': title,
+      'pushText': text,
     };
   }
 }
