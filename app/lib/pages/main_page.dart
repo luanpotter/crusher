@@ -40,10 +40,14 @@ class _MainPageState extends State<MainPage> {
       this.setState(() {
         this.loading = false;
         this.crons = crons;
+        this.errorMessage = null;
       });
     } on ApiException catch (ex) {
       print('Error: $ex');
-      errorMessage = 'Error fetching crons: ${ex.message}; please tap to retry';
+      this.setState(() {
+        this.loading = false;
+        this.errorMessage = 'Error fetching crons: ${ex.message}; please tap to retry';
+      });
     }
   }
 
