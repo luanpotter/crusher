@@ -10,6 +10,7 @@ version = "0.1.0"
 repositories {
     mavenCentral()
     jcenter()
+    maven("https://jitpack.io")
 }
 
 dependencies {
@@ -20,6 +21,7 @@ dependencies {
     compile("org.jetbrains.exposed:exposed:0.17.6")
     compile("org.postgresql:postgresql:42.2.1")
     compile("com.google.code.gson:gson:2.8.6")
+    compile("com.github.rnett:exposedgson:1.1.1")
 }
 
 task("copyToLib", Copy::class) {

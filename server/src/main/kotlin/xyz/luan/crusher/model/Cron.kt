@@ -1,5 +1,7 @@
 package xyz.luan.crusher.model
 
+import com.google.gson.annotations.JsonAdapter
+import com.rnett.exposedgson.ExposedTypeAdapter
 import org.jetbrains.exposed.dao.*
 
 object Crons : IntIdTable() {
@@ -11,6 +13,7 @@ object Crons : IntIdTable() {
     val pushText = text("push_text")
 }
 
+@JsonAdapter(ExposedTypeAdapter::class)
 class Cron(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Cron>(Crons)
 

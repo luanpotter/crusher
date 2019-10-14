@@ -19,13 +19,23 @@ class _MainPageState extends State<MainPage> {
   bool loading = true;
   List<Cron> crons;
 
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _cronController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _textController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    Api.fetchCrons(widget.user).then((crons) => this.setState(() {
-          this.loading = false;
-          this.crons = crons;
-        }));
+    this.fetchCrons();
+  }
+
+  void fetchCrons() async {
+    List<Cron> crons = await Api.fetchCrons(widget.user);
+    this.setState(() {
+      this.loading = false;
+      this.crons = crons;
+    });
   }
 
   @override
@@ -49,10 +59,17 @@ class _MainPageState extends State<MainPage> {
           builder: (context) {
             return AlertDialog(
               title: Text('Create new Cron'),
-              content: Row(
-                children: [
-                  //
-                ],
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    input(_nameController, "Name",
+                        "Name/desc of this cron (just for ref.)"),
+                    input(_cronController, "Cron",
+                        "Cron string for this cron (start with the hour)"),
+                    input(_titleController, "Title", "Title for the push notf"),
+                    input(_textController, "Text", "Text for the push notf"),
+                  ],
+                ),
               ),
               actions: [
                 RaisedButton(
@@ -71,8 +88,18 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void createCron() {
-    // TODO impl this
+  void createCron() async {
+    this.setState(() => this.loading = true);
+    await Api.createCron(
+        widget.user,
+        Cron(
+          name: _nameController.text,
+          email: widget.user.email,
+          cron: _cronController.text,
+          title: _titleController.text,
+          text: _textController.text,
+        ));
+    this.fetchCrons();
   }
 
   Widget buildContent() {
