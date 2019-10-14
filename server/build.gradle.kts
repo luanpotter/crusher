@@ -33,6 +33,8 @@ task("copyToLib", Copy::class) {
 
 task("stage") {
     dependsOn("clean", "build", "copyToLib")
+    tasks.findByName("build")?.mustRunAfter("clean")
+    tasks.findByName("copyToLib")?.mustRunAfter("build")
 }
 
 tasks.withType<KotlinCompile> {
