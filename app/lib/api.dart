@@ -14,14 +14,15 @@ class Api {
 
   static Future<Cron> createCron(Login user, Cron cron) async {
     final String body = json.encode(cron.toMap());
-    print(body);
     final http.Response response = await http.post('$BASE/crons', body: body, headers: await _headers(user));
     return Cron.fromJson(json.decode(response.body) as Map);
   }
 
   static Future<Map<String, String>> _headers(Login user) async {
     final String token = await user.getToken();
+    print('token: "$token"');
     final Map<String, String> headers = { 'Authorization': 'Bearer $token' };
+    print(headers);
     return headers;
   }
 }
