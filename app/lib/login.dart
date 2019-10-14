@@ -2,10 +2,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter/material.dart' show VoidCallback;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Login {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseAuth _auth = FirebaseAuth.instance;
+  static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   FirebaseUser _user;
   
@@ -15,6 +17,10 @@ class Login {
 
   Future<String> getToken() {
     return _user.getIdToken().then((id) => id.token);
+  }
+
+  Future<String> getDeviceToken() {
+    return _firebaseMessaging.getToken();
   }
 
   static Future<Login> silentLogin() async {

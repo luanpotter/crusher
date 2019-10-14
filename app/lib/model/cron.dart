@@ -5,8 +5,9 @@ class Cron {
   String cron;
   String title;
   String text;
+  String deviceToken;
 
-  Cron({ this.id, this.name, this.email, this.cron, this.title, this.text });
+  Cron({ this.id, this.name, this.email, this.cron, this.title, this.text, this.deviceToken });
 
   static Cron fromJson(Map map) {
     return Cron(
@@ -16,6 +17,7 @@ class Cron {
       cron: map['cronString'],
       title: map['pushTitle'],
       text: map['pushText'],
+      deviceToken: map['userdeviceToken'],
     );
   }
 
@@ -26,6 +28,7 @@ class Cron {
       'cronString': cron,
       'pushTitle': title,
       'pushText': text,
+      'userdeviceToken': deviceToken,
     };
   }
 }

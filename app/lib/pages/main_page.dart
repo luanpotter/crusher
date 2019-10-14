@@ -46,7 +46,8 @@ class _MainPageState extends State<MainPage> {
       print('Error: $ex');
       this.setState(() {
         this.loading = false;
-        this.errorMessage = 'Error fetching crons: ${ex.message}; please tap to retry';
+        this.errorMessage =
+            'Error fetching crons: ${ex.message}; please tap to retry';
       });
     }
   }
@@ -120,15 +121,19 @@ class _MainPageState extends State<MainPage> {
   void createCron(context) async {
     this.setState(() => this.loading = true);
     try {
+      String deviceToken = await widget.user.getDeviceToken();
+      print("Using device token: $deviceToken");
       await CronApi.createCron(
-          widget.user,
-          Cron(
-            name: _nameController.text,
-            email: widget.user.email,
-            cron: _cronController.text,
-            title: _titleController.text,
-            text: _textController.text,
-          ));
+        widget.user,
+        Cron(
+          name: _nameController.text,
+          email: widget.user.email,
+          cron: _cronController.text,
+          title: _titleController.text,
+          text: _textController.text,
+          deviceToken: deviceToken,
+        ),
+      );
       Navigator.of(context).pop();
       this.fetchCrons();
     } on ApiException catch (ex) {
