@@ -29,7 +29,7 @@ object JobApi {
     }
 
     private fun validateToken(request: spark.Request) {
-        val token = request.params("token") ?: throw halt(403, "Sorry, token query param required")
+        val token = request.queryParams("token") ?: throw halt(403, "Sorry, token query param required")
         if (token != getToken()) throw halt(403, "Invalid token provided: $token")
     }
 
