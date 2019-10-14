@@ -6,7 +6,7 @@ import '../login.dart';
 import '../model/cron.dart';
 
 class CronApi {
-  static const BASE = 'https://crusher-app.herokuapp.com/';
+  static const BASE = 'https://crusher-app.herokuapp.com';
 
   static Future<List<Cron>> fetchCrons(Login user) async {
     final response =
