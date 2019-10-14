@@ -32,6 +32,7 @@ task("copyToLib", Copy::class) {
 }
 
 task("stage") {
+    outputs.upToDateWhen { false }
     dependsOn("clean", "build", "copyToLib")
     tasks.findByName("build")?.mustRunAfter("clean")
     tasks.findByName("copyToLib")?.mustRunAfter("build")
