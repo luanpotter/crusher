@@ -1,4 +1,4 @@
-package com.example.crusher
+package xyz.luan.crusher
 
 import android.os.Bundle
 
