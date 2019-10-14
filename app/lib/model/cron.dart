@@ -17,7 +17,7 @@ class Cron {
       cron: map['cronString'],
       title: map['pushTitle'],
       text: map['pushText'],
-      deviceToken: map['userdeviceToken'],
+      deviceToken: map['userDeviceToken'],
     );
   }
 
@@ -28,7 +28,7 @@ class Cron {
       'cronString': cron,
       'pushTitle': title,
       'pushText': text,
-      'userdeviceToken': deviceToken,
+      'userDeviceToken': deviceToken,
     };
   }
 }
