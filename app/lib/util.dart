@@ -35,3 +35,8 @@ Widget input(TextEditingController controller, String label, String hint) {
     ],
   );
 }
+
+void toast(BuildContext context, String message) {
+  final snackBar = SnackBar(content: Text(message));
+  Scaffold.of(context).showSnackBar(snackBar);
+}

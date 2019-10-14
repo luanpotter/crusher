@@ -25,4 +25,12 @@ object Db {
     fun createCron(cron: Cron): Cron {
         return transaction(db) { cron.save() }
     }
+
+    fun findDbCron(id: Int): DbCron? {
+        return transaction(db) { DbCron.findById(id) }
+    }
+
+    fun deleteCron(dbCron: DbCron) {
+        return transaction(db) { dbCron.delete() }
+    }
 }

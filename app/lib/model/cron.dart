@@ -1,14 +1,16 @@
 class Cron {
+  int id;
   String name;
   String email;
   String cron;
   String title;
   String text;
 
-  Cron({ this.name, this.email, this.cron, this.title, this.text });
+  Cron({ this.id, this.name, this.email, this.cron, this.title, this.text });
 
   static Cron fromJson(Map map) {
     return Cron(
+      id: map['id'],
       name: map['name'],
       email: map['userEmail'],
       cron: map['cronString'],

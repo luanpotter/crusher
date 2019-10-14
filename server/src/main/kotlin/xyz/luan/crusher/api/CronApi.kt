@@ -36,5 +36,13 @@ object CronApi {
             cron.validate()
             json.toJson(createCron(cron))
         }
+        http.delete("/crons/:id") {
+            val email = FirebaseWrapper.validateTokenAndGetEmail(getToken())
+            val id = request.params("id")?.let { Integer.parseInt(it) } ?: throw halt(404, "Invalid id provided.")
+            val dbCron = Db.findDbCron(id) ?: throw halt(404, "Cron does not exist")
+            if (dbCron.userEmail != email) throw halt(403, "You can only delete your own crons")
+            Db.deleteCron(dbCron)
+            "Removed successfully"
+        }
     }
 }
