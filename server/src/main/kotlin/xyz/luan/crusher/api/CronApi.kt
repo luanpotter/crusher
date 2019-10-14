@@ -5,7 +5,6 @@ import spark.kotlin.Http
 import spark.kotlin.RouteHandler
 import spark.kotlin.halt
 import xyz.luan.crusher.model.Cron
-import xyz.luan.crusher.model.Crons
 import xyz.luan.crusher.model.Db
 
 private val json = Gson()

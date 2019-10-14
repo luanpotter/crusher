@@ -4,7 +4,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import xyz.luan.crusher.model.Crons
+import xyz.luan.crusher.model.DbCrons
 
 object Db {
     private val db: Database by lazy {
@@ -17,7 +17,7 @@ object Db {
 
     fun init() {
         print("Started database: ${db.url}")
-        t { SchemaUtils.create(Crons) }
+        t { SchemaUtils.create(DbCrons) }
     }
 
     fun listCrons(userEmail: String): List<DbCron> {
