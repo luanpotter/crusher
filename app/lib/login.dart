@@ -1,11 +1,27 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:flutter/material.dart' show VoidCallback;
 
 class Login {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  static Future<FirebaseUser> signIn() async {
+  String email;
+
+  Login(FirebaseUser user) {
+    this.email = user.email;
+  }
+
+  static Future<Login> silentLogin() async {
+    final FirebaseUser currentUser = await _auth.currentUser();
+    if (currentUser != null && currentUser.isEmailVerified) {
+      return Login(currentUser);
+    }
+    return null;
+  }
+
+  static Future<Login> doSignIn() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
@@ -15,7 +31,11 @@ class Login {
     );
 
     final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
-    print("signed in " + user.displayName);
-    return user;
+    if (!user.isEmailVerified) throw 'Invalid account, email verification required';
+    return Login(user);
+  }
+
+  static GoogleSignInButton button(VoidCallback onPressed) {
+    return GoogleSignInButton(onPressed: onPressed);
   }
 }
