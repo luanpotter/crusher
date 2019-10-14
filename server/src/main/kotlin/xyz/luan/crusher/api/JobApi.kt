@@ -16,7 +16,7 @@ object JobApi {
                 val shouldRun = CronWrapper.isNow(it.cronString!!, currentTime)
                 if (shouldRun) runCron(it)
                 shouldRun
-            }
+            }.size
             "Successfully ran $amount crons"
         }
     }
