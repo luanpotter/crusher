@@ -22,13 +22,14 @@ dependencies {
     implementation("org.postgresql:postgresql:42.2.1")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.firebase:firebase-admin:6.10.0")
+    implementation("com.h2database:h2:1.4.199")
 
-    testCompile("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
 }
 
 task("copyToLib", Copy::class) {
     into("$buildDir/libs")
-    from(configurations.compile)
+    from(configurations.compileClasspath)
 }
 
 task("stage") {
